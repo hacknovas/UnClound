@@ -1,6 +1,6 @@
 import React from "react";
 
-function NoPage({ title, ...props }) {
+function NoPage() {
   return <div className="">No Page</div>;
 }
 

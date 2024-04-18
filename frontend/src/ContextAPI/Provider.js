@@ -19,12 +19,14 @@ const Provider = ({ children }) => {
         setAddress(Signer.address);
       }
     })();
-    
-    window.ethereum.on("accountsChanged", async () => {
-      const Provider = new ethers.BrowserProvider(window.ethereum);
-      const Signer = await Provider.getSigner();
-      setAddress(Signer.address);
-    });
+
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", async () => {
+        const Provider = new ethers.BrowserProvider(window.ethereum);
+        const Signer = await Provider.getSigner();
+        setAddress(Signer.address);
+      });
+    }
   });
 
   return (
