@@ -1,4 +1,3 @@
-//TODO: Log out nahi ho rha pta nahi kyu
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
