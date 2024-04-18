@@ -73,9 +73,8 @@ function ReceivedFiles() {
                   );
                 }}
                 style={{ cursor: "pointer" }}
-                className="size-7"
               >
-                <img src="./Images/openFile2.png" alt="NA" />
+                <i class="bx bx-file "></i>
               </div>
               <div>
                 {file.owner.substring(0, 4) +
