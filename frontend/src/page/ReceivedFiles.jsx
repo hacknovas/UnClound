@@ -49,39 +49,47 @@ function ReceivedFiles() {
 
   return (
     <div className="w-full">
-       <div className="flex justify-around mb-3 font-extrabold text-white bg-gray-500 p-3 m-2 rounded-sm">
+      <div className="flex justify-around mb-3 font-extrabold text-white bg-gray-500 p-3 m-2 rounded-sm">
         <div>File</div>
-        <div>ID</div>
+        <div>Owner</div>
         <div>Name</div>
-        <div>Edit</div>
       </div>
-      {sharedFiles.map((file, i) =>
-        file.metaID ? (
-          <div className="flex justify-around list-none m-0 px-10">
-            <div
-              onClick={async () => {
-                // Fetch encrypted data from the IPFS
-                const response = await axios.get(
-                  `https://gateway.pinata.cloud/ipfs/${file.tokenURI}`
-                );
+      <div className="flex flex-col justify-around">
+        {sharedFiles.map((file, i) =>
+          file.metaID ? (
+            <div className="flex justify-around list-none m-0 p-3 font-bold">
+              <div
+                onClick={async () => {
+                  // Fetch encrypted data from the IPFS
+                  const response = await axios.get(
+                    `https://gateway.pinata.cloud/ipfs/${file.tokenURI}`
+                  );
 
-                // Decrypt the data
-                decrypt(
-                  new Blob([response.data]),
-                  file.name.split(".")[1],
-                  file.secretKey
-                );
-              }}
-              style={{ cursor: "pointer" }}
-              className="size-7"
-            >
-              <img src="./Images/openFile2.png" alt="NA" />
+                  // Decrypt the data
+                  decrypt(
+                    new Blob([response.data]),
+                    file.name.split(".")[1],
+                    file.secretKey
+                  );
+                }}
+                style={{ cursor: "pointer" }}
+                className="size-7"
+              >
+                <img src="./Images/openFile2.png" alt="NA" />
+              </div>
+              <div>
+                {file.owner.substring(0, 4) +
+                  "..." +
+                  file.owner.substring(
+                    file.owner.length - 5,
+                    file.owner.length
+                  )}
+              </div>
+              <div>{file.name}</div>
             </div>
-            <div>{file.name}</div>
-            <div> {file.owner}</div>
-          </div>
-        ) : null
-      )}
+          ) : null
+        )}
+      </div>
     </div>
   );
 }

@@ -30,45 +30,49 @@ const Sidebar = () => {
   const handleLogout = async () => {};
 
   return (
-    <div className="h-screen flex flex-col justify-between w-1/5 bg-gray-800 p-4" id="switchMenu">
-      <div className="text-end text-white">
-        <i className="bx bx-menu cursor-pointer" onClick={() => {}}></i>
-      </div>
+    <div
+      className="flex flex-col justify-between h-screen w-1/5 bg-gray-800 p-4"
+      id="switchMenu"
+    >
       <div>
-        <p className="text-3xl text-white mb-4">{UserName}</p>
-        <div className=" text-white ">
-          {address == "" ? (
-            hasMeta ? (
-              <button
-                className="bg-white text-black"
-                onClick={handleConnection}
-              >
-                Connect to Metamask
-              </button>
+        <div className="text-end text-white">
+          <i className="bx bx-menu cursor-pointer"></i>
+        </div>
+        <div>
+          <p className="text-3xl text-white mb-4">{UserName}</p>
+          <div className=" text-white ">
+            {address == "" ? (
+              hasMeta ? (
+                <button
+                  className="bg-white text-black"
+                  onClick={handleConnection}
+                >
+                  Connect to Metamask
+                </button>
+              ) : (
+                <button className="bg-white text-black">
+                  <a href="https://metamask.io/download/" target="_blank">
+                    Install Matamask
+                  </a>
+                </button>
+              )
             ) : (
-              <button className="bg-white text-black">
-                <a href="https://metamask.io/download/" target="_blank">
-                  Install Matamask
-                </a>
-              </button>
-            )
-          ) : (
-            <div className="bg-gray-700 p-3 rounded-md">
-              <div className="text-start font-bold">Uncloud Address:</div>
-              <div className="text-light text-end underline ">
-                {address.substring(0, 4) +
-                  "..." +
-                  address.substring(address.length - 5, address.length)}
-              </div>
-              {/* <div className="text-xl">
+              <div className="bg-gray-700 p-3 rounded-md">
+                <div className="text-start font-bold">Uncloud Address:</div>
+                <div className="text-light text-end underline ">
+                  {address.substring(0, 4) +
+                    "..." +
+                    address.substring(address.length - 5, address.length)}
+                </div>
+                {/* <div className="text-xl">
                 <CiLogout onClick={handleLogout} />
               </div> */}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
         </div>
+        {/* Navigation Bar */}
       </div>
-      {/* Navigation Bar */}
-
       {hasMeta ? (
         <div className="">
           <ul className="my-14">
