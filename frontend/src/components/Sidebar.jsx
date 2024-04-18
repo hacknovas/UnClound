@@ -60,9 +60,11 @@ const Sidebar = () => {
               <div className="bg-gray-700 p-3 rounded-md">
                 <div className="text-start font-bold">Uncloud Address:</div>
                 <div className="text-light text-end underline ">
-                  {address.substring(0, 4) +
-                    "..." +
-                    address.substring(address.length - 5, address.length)}
+                  <a href={`https://sepolia.etherscan.io/address/${address}`}>
+                    {address.substring(0, 4) +
+                      "..." +
+                      address.substring(address.length - 5, address.length)}
+                  </a>
                 </div>
                 {/* <div className="text-xl">
                 <CiLogout onClick={handleLogout} />
