@@ -48,13 +48,13 @@ function ReceivedFiles() {
   }, []);
 
   return (
-    <div className="absolute top-1/2 right-0 transform -translate-y-1/2 w-4/5">
-      <div className="flex justify-around mb-3 text-start bg-gray-50 p-3">
+    <div className="w-full">
+       <div className="flex justify-around mb-3 font-extrabold text-white bg-gray-500 p-3 m-2 rounded-sm">
         <div>File</div>
+        <div>ID</div>
         <div>Name</div>
-        <div>Owner</div>
+        <div>Edit</div>
       </div>
-
       {sharedFiles.map((file, i) =>
         file.metaID ? (
           <div className="flex justify-around list-none m-0 px-10">

@@ -1,15 +1,16 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Sidebar from '../components/Sidebar'
-
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 
 const Layout = () => {
-    return (
-        <>
-            <Sidebar/>
-            <Outlet/>
-        </>
-    )
-}
+  return (
+    <>
+      <div className="flex">
+        <Sidebar />
+        <Outlet />
+      </div>
+    </>
+  );
+};
 
-export default Layout
+export default Layout;

@@ -44,20 +44,17 @@ function FileList() {
       const Signer = await Provider.getSigner();
       getMyFiles(Signer);
     });
-
   }, []);
 
   return (
-    <div className="container m-3 h-full">
-      <div className="absolute top-10 right-0 transform -translate-y-1/2 w-4/5">
-        <div className="flex justify-around mb-3 text-start bg-gray-300 p-3">
-          <div>File</div>
-          <div>ID</div>
-          <div>Name</div>
-          <div>Edit</div>
-        </div>
+    <div className="w-full">
+      <div className="flex justify-around mb-3 font-extrabold text-white bg-gray-500 p-3 m-2 rounded-sm">
+        <div>File</div>
+        <div>ID</div>
+        <div>Name</div>
+        <div>Edit</div>
       </div>
-      <div className="m ml-80 mt-20">
+      <div className="flex flex-col justify-between mb-3 p-3">
         {myFiles.map((file, i) => {
           return <File key={i} file={file} />;
         })}
