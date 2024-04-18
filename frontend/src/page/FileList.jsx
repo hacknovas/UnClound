@@ -55,9 +55,13 @@ function FileList() {
         <div>Edit</div>
       </div>
       <div className="flex flex-col justify-between mb-3 p-3">
-        {myFiles.map((file, i) => {
-          return <File key={i} file={file} />;
-        })}
+        {myFiles.length > 0 ? (
+          myFiles.map((file, i) => {
+            return <File key={i} file={file} />;
+          })
+        ) : (
+          <div className="text-center ">No File Uploaded</div>
+        )}
       </div>
     </div>
   );

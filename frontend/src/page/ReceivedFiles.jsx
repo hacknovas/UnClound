@@ -55,38 +55,42 @@ function ReceivedFiles() {
         <div>Name</div>
       </div>
       <div className="flex flex-col justify-around">
-        {sharedFiles.map((file, i) =>
-          file.metaID ? (
-            <div className="flex justify-around list-none m-0 p-3 font-bold">
-              <div
-                onClick={async () => {
-                  // Fetch encrypted data from the IPFS
-                  const response = await axios.get(
-                    `https://gateway.pinata.cloud/ipfs/${file.tokenURI}`
-                  );
+        {sharedFiles.length > 0 ? (
+          sharedFiles.map((file, i) =>
+            file.metaID ? (
+              <div className="flex justify-around list-none m-0 p-3 font-bold">
+                <div
+                  onClick={async () => {
+                    // Fetch encrypted data from the IPFS
+                    const response = await axios.get(
+                      `https://gateway.pinata.cloud/ipfs/${file.tokenURI}`
+                    );
 
-                  // Decrypt the data
-                  decrypt(
-                    new Blob([response.data]),
-                    file.name.split(".")[1],
-                    file.secretKey
-                  );
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                <i class="bx bx-file "></i>
+                    // Decrypt the data
+                    decrypt(
+                      new Blob([response.data]),
+                      file.name.split(".")[1],
+                      file.secretKey
+                    );
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  <i class="bx bx-file "></i>
+                </div>
+                <div>
+                  {file.owner.substring(0, 4) +
+                    "..." +
+                    file.owner.substring(
+                      file.owner.length - 5,
+                      file.owner.length
+                    )}
+                </div>
+                <div>{file.name}</div>
               </div>
-              <div>
-                {file.owner.substring(0, 4) +
-                  "..." +
-                  file.owner.substring(
-                    file.owner.length - 5,
-                    file.owner.length
-                  )}
-              </div>
-              <div>{file.name}</div>
-            </div>
-          ) : null
+            ) : null
+          )
+        ) : (
+          <div className="text-center ">No File Shared</div>
         )}
       </div>
     </div>
