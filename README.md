@@ -20,9 +20,9 @@ This project aims to create a secure and decentralized file sharing system using
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) installed
-- [Hardhat.js](https://hardhat.org/) installed
-- [ethers.js](https://docs.ethers.org/v5/) installed
+- [Node.js](https://nodejs.org/)
+- [Hardhat.js](https://hardhat.org/)
+- [ethers.js](https://docs.ethers.org/v5/) 
 
 ### Installation
 
