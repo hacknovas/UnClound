@@ -71,6 +71,9 @@ const Upload = () => {
       }
 
       alert("Wait Some Time to reflect in file section");
+      setUploadStatus("Upload");
+      setSelectedFiles([]);
+
     } catch (error) {
       console.log(error);
       setUploadStatus("Upload");
@@ -160,15 +163,19 @@ const Upload = () => {
           >
             Select File
           </Button>
-          <Button
-            type="button"
-            onClick={() => {
-              setSelectedFiles([]);
-            }}
-            className="text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            Remove All
-          </Button>
+          {selectedFiles.length > 0 ? (
+            <Button
+              type="button"
+              onClick={() => {
+                setSelectedFiles([]);
+              }}
+              className="text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Remove All
+            </Button>
+          ) : (
+            <></>
+          )}
         </div>
 
         <div className="">
