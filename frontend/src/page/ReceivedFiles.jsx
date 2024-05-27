@@ -56,7 +56,10 @@ function ReceivedFiles() {
         <div>Owner</div>
         <div>Name</div>
       </div>
-      <div className="flex flex-col justify-around">
+      <div
+        className="flex flex-col justify-around custom-scroll border-b"
+        style={{ height: "80vh", overflowY: "auto" }}
+      >
         {sharedFiles.length > 0 ? (
           sharedFiles.map((file, i) =>
             file.metaID ? (
@@ -109,6 +112,9 @@ function ReceivedFiles() {
         ) : (
           <div className="text-center ">No File Shared</div>
         )}
+      </div>
+      <div className="text-center text-gray-500 mt-2.5">
+        made by <b>@VPKBIET, Baramati</b>
       </div>
     </div>
   );

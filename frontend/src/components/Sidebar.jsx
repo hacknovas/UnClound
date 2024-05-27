@@ -40,7 +40,7 @@ const Sidebar = () => {
         </div>
         <div>
           <p className="text-3xl text-white mb-4">{UserName}</p>
-          <div className=" text-white ">
+          <div className=" text-white text-center">
             {address == "" ? (
               hasMeta ? (
                 <button
@@ -50,7 +50,7 @@ const Sidebar = () => {
                   Connect to Metamask
                 </button>
               ) : (
-                <button className="bg-white text-black">
+                <button className="bg-gray-700 p-3 rounded-md">
                   <a href="https://metamask.io/download/" target="_blank">
                     Install Matamask
                   </a>
@@ -60,7 +60,7 @@ const Sidebar = () => {
               <div className="bg-gray-700 p-3 rounded-md">
                 <div className="text-start font-bold">Uncloud Address:</div>
                 <div className="text-light text-end underline ">
-                  <a href={`https://sepolia.etherscan.io/address/${address}`}>
+                  <a href={`https://sepolia.etherscan.io/address/${address}`} target="_blank">
                     {address.substring(0, 4) +
                       "..." +
                       address.substring(address.length - 5, address.length)}
@@ -105,7 +105,7 @@ const Sidebar = () => {
           </ul>
         </div>
       ) : (
-        <div className="text-white">
+        <div className="text-white text-center">
           <b>
             To Use UnCloud,
             <br /> install Matamask

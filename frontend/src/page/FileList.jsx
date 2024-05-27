@@ -54,7 +54,10 @@ function FileList() {
         <div>Name</div>
         <div>Edit</div>
       </div>
-      <div className="flex flex-col justify-between mb-3 p-3">
+      <div
+        className="flex flex-col justify-between mb-3 p-3 custom-scroll border-b"
+        style={{ height: "80vh", overflowY: "auto" }}
+      >
         {myFiles.length > 0 ? (
           myFiles.map((file, i) => {
             return <File key={i} file={file} />;
@@ -62,6 +65,9 @@ function FileList() {
         ) : (
           <div className="text-center ">No File Uploaded</div>
         )}
+      </div>
+      <div className="text-center text-gray-500">
+        made by <b>@VPKBIET, Baramati</b>
       </div>
     </div>
   );
