@@ -57,7 +57,7 @@ function ReceivedFiles() {
         <div>Name</div>
       </div>
       <div
-        className="flex flex-col justify-around custom-scroll border-b"
+        className="flex flex-col custom-scroll border-b"
         style={{ height: "80vh", overflowY: "auto" }}
       >
         {sharedFiles.length > 0 ? (
