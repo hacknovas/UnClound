@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import UnCloud from "../EthereumF/UnCloud.json";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 import { decrypt } from "../AESEncrDecr/encryptDecrypt";
 
 function ReceivedFiles() {
   const ethers = require("ethers");
   const navigator = useNavigate();
+  const [runLoader, setRunLoader] = useState(false);
   const [sharedFiles, setSharedFiles] = useState([]);
 
   const getSharedFiles = async (Signer) => {
@@ -54,13 +56,17 @@ function ReceivedFiles() {
         <div>Owner</div>
         <div>Name</div>
       </div>
-      <div className="flex flex-col justify-around">
+      <div
+        className="flex flex-col custom-scroll border-b"
+        style={{ height: "80vh", overflowY: "auto" }}
+      >
         {sharedFiles.length > 0 ? (
           sharedFiles.map((file, i) =>
             file.metaID ? (
               <div className="flex justify-around list-none m-0 p-3 font-bold">
                 <div
                   onClick={async () => {
+                    setRunLoader(true);
                     // Fetch encrypted data from the IPFS
                     const response = await axios.get(
                       `https://gateway.pinata.cloud/ipfs/${file.tokenURI}`
@@ -72,10 +78,24 @@ function ReceivedFiles() {
                       file.name.split(".")[1],
                       file.secretKey
                     );
+                    setRunLoader(false);
                   }}
                   style={{ cursor: "pointer" }}
                 >
-                  <i class="bx bx-file "></i>
+                  {runLoader ? (
+                    <ThreeDots
+                      visible={true}
+                      height="20"
+                      width="20"
+                      color="blue"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                  ) : (
+                    <i class="bx bx-file "></i>
+                  )}
                 </div>
                 <div>
                   {file.owner.substring(0, 4) +
@@ -92,6 +112,9 @@ function ReceivedFiles() {
         ) : (
           <div className="text-center ">No File Shared</div>
         )}
+      </div>
+      <div className="text-center text-gray-500 mt-2.5">
+        made by <b>@VPKBIET, Baramati</b>
       </div>
     </div>
   );

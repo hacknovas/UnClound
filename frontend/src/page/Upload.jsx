@@ -5,6 +5,7 @@ import axios from "axios";
 import UnCloud from "../EthereumF/UnCloud.json";
 import { useNavigate } from "react-router-dom";
 import { encrypt, createSecret256 } from "../AESEncrDecr/encryptDecrypt";
+import { LineWave, ThreeDots } from "react-loader-spinner";
 
 const Upload = () => {
   const navigator = useNavigate();
@@ -12,7 +13,7 @@ const Upload = () => {
 
   const fileInputRef = useRef(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [uploadStatus, setUploadStatus] = useState("Upload");
+  const [runLoader, setRunLoader] = useState(false);
 
   const handleUploadClick = () => {
     // Trigger the file input click event
@@ -36,12 +37,9 @@ const Upload = () => {
   //Upload to IPFS
   const UploadToIpfs = async () => {
     try {
-      console.log("1");
+      setRunLoader(true);
       // Append each file with a unique key
       for (let i = 0; i < selectedFiles.length; i++) {
-        setUploadStatus(
-          "Uploading " + selectedFiles[i].name.substring(0, 5) + "..." + " file"
-        );
 
         const secretKey = createSecret256();
         const encryptBlobData = await encrypt(selectedFiles[i], secretKey);
@@ -70,10 +68,12 @@ const Upload = () => {
         );
       }
 
-      alert("Wait Some Time to reflect in file section");
+      alert("File Uploaded.");
+      setSelectedFiles([]);
+      setRunLoader(false);
     } catch (error) {
       console.log(error);
-      setUploadStatus("Upload");
+      setRunLoader(false);
       setError(error.message);
     }
   };
@@ -93,7 +93,6 @@ const Upload = () => {
 
       await contractInstance.storeMetaData(hashVal, name, secretKey);
     } catch (error) {
-      setUploadStatus("Upload");
       if (error.code === 4001) {
         //user rejected the transaction
       }
@@ -160,25 +159,40 @@ const Upload = () => {
           >
             Select File
           </Button>
-          <Button
-            type="button"
-            onClick={() => {
-              setSelectedFiles([]);
-            }}
-            className="text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            Remove All
-          </Button>
+          {selectedFiles.length > 0 ? (
+            <Button
+              type="button"
+              onClick={() => {
+                setSelectedFiles([]);
+              }}
+              className="text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Remove All
+            </Button>
+          ) : (
+            <></>
+          )}
         </div>
 
         <div className="">
-          {selectedFiles.length > 0 ? (
+          {runLoader ? (
+            <ThreeDots
+              visible={true}
+              height="80"
+              width="80"
+              color="blue"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          ) : selectedFiles.length > 0 ? (
             <Button
               type="button"
               className="text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               onClick={UploadToIpfs}
             >
-              {uploadStatus}
+              {"Upload"}
             </Button>
           ) : null}
         </div>

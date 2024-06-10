@@ -3,6 +3,7 @@ import UnCloud from "../EthereumF/UnCloud.json";
 import Input from "./Input";
 import { decrypt } from "../AESEncrDecr/encryptDecrypt";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function File({ file }) {
   const ethers = require("ethers");
@@ -12,6 +13,7 @@ export default function File({ file }) {
 
   const [openManageAccess, setopenManageAccess] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [runLoader, setRunLoader] = useState(false);
 
   const manageAccess = async (Signer) => {
     // get All Adreess associated with each file
@@ -83,6 +85,7 @@ export default function File({ file }) {
       <div className="flex items-center justify-around rounded-lg px-3 py-1.5 shadow-sm shadow-white/50 duration-300 text-black mb-2 ">
         <div
           onClick={async () => {
+            setRunLoader(true);
             // Fetch encrypted data from the IPFS
             const response = await axios.get(
               `https://gateway.pinata.cloud/ipfs/${file.tokenURI}`
@@ -94,10 +97,24 @@ export default function File({ file }) {
               file.name.split(".")[1],
               file.secretKey
             );
+            setRunLoader(false);
           }}
           style={{ cursor: "pointer" }}
         >
-          <i class="bx bx-file "></i>
+          {runLoader ? (
+            <ThreeDots
+              visible={true}
+              height="20"
+              width="20"
+              color="blue"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          ) : (
+            <i class="bx bx-file "></i>
+          )}
         </div>
         <div>{file.metaID.toString()}</div>
         <div>
